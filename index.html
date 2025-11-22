@@ -82,18 +82,16 @@
         .donation-icon { font-size: 2rem; margin-bottom: 0.3rem; }
         
         /* Special styling for the $50 donation option */
-        /* Special styling for the $50 donation option */
 .donation-option[data-amount="50"] {
-    background: white;
-    border: 2px solid #FF6B00;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+    background: white; /* CHANGED TO WHITE */
+    border: 2px solid #FFD700; /* Normal border like others */
     position: relative;
     overflow: hidden;
 }
 
 .donation-option[data-amount="50"] h3,
 .donation-option[data-amount="50"] p {
-    color: #FF0000; /* Changed to red */
+    color: #FF0000; /* Keep red text */
     font-weight: bold;
     text-shadow: 0 0 10px rgba(255, 0, 0, 0.8); /* Red glow */
     position: relative;
@@ -117,6 +115,32 @@
     animation: shine 3s infinite linear;
     z-index: 1;
 }
+
+        .donation-option[data-amount="50"] h3,
+        .donation-option[data-amount="50"] p {
+            color: #FF0000;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+            position: relative;
+            z-index: 2;
+        }
+
+        .donation-option[data-amount="50"]::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shine 3s infinite linear;
+            z-index: 1;
         }
         
         @keyframes shine {
@@ -402,12 +426,12 @@
                 <div class="donation-option" data-amount="25">
                     <div class="donation-icon">👟</div>
                     <h3>$25</h3>
-                    <p>Left Shoe</p>
+                    <p>Left Baller Shoe</p>
                 </div>
                 <div class="donation-option" data-amount="25">
                     <div class="donation-icon">👟</div>
                     <h3>$25</h3>
-                    <p>Right Shoe</p>
+                    <p>Right Baller Shoe</p>
                 </div>
                 <div class="donation-option" data-amount="50">
                     <div class="donation-icon">🤼</div>
@@ -429,7 +453,7 @@
             </div>
             
             <p style="font-size: 0.9rem;"><strong>Venmo:</strong> @Lengi-Sili (nikoVao'sMom)</p>
-            <a href="https://account.venmo.com/pay?recipients=Lengi-Sili" class="btn" style="background: linear-gradient(135deg, #3D95CE, #2a7bb8); color: white;">Open Venmo App</a>
+            <a href="https://account.venmo.com/pay?recipients=Lengi-Sili" class="btn" id="venmo-app-btn" style="background: linear-gradient(135deg, #3D95CE, #2a7bb8); color: white;">Open Venmo App</a>
         </section>
 
         <!-- Updated Video Section -->
@@ -458,19 +482,151 @@
     </footer>
 
     <script>
-        document.querySelectorAll('.donation-option').forEach(option => {
-            option.addEventListener('click', function() {
-                document.querySelectorAll('.donation-option').forEach(opt => {
-                    opt.style.background = 'white';
-                });
-                this.style.background = 'linear-gradient(135deg, #FFD700, #FF6B00)';
-                const amount = this.getAttribute('data-amount');
-            });
-        });
+    // Smart Venmo Integration with Confetti & Blinking!
+    let selectedOption = null;
+    let blinkInterval = null;
 
-        document.getElementById('venmo-donate-btn').addEventListener('click', function(e) {
-            alert(`Thank you! You'll be redirected to Venmo to support Vao {niko}!`);
+    document.querySelectorAll('.donation-option').forEach(option => {
+        option.addEventListener('click', function() {
+            // Stop any previous blinking
+            if (blinkInterval) {
+                clearInterval(blinkInterval);
+            }
+            
+            // Reset all options to white background
+            document.querySelectorAll('.donation-option').forEach(opt => {
+                opt.style.background = 'white';
+                opt.style.border = '2px solid #FFD700';
+                opt.style.boxShadow = 'none';
+            });
+            
+            // Set the new selected option
+            selectedOption = this;
+            
+            // Start blinking for the selected option
+            startBlinking();
+            
+            const amount = this.getAttribute('data-amount');
+            
+            // Get the note text for this donation option
+            const note = this.querySelector('p').textContent;
+            const description = `Support Niko Vao Sili - ${note}`;
+            
+            // Create Venmo URL with pre-filled details
+            const venmoURL = `https://account.venmo.com/pay?recipients=Lengi-Sili&amount=${amount}&note=${encodeURIComponent(description)}&txn=pay`;
+            
+            // Update both Venmo button links
+            document.getElementById('venmo-donate-btn').href = venmoURL;
+            document.getElementById('venmo-app-btn').href = venmoURL;
         });
-    </script>
+    });
+
+    // Blinking function
+    function startBlinking() {
+        if (!selectedOption) return;
+        
+        let isGold = true;
+        const isFifty = selectedOption.getAttribute('data-amount') === '50';
+        
+        blinkInterval = setInterval(() => {
+            if (isFifty) {
+                // Blink between white and red for $50
+                if (isGold) {
+                    selectedOption.style.background = 'linear-gradient(135deg, #FF4444, #FF0000, #CC0000)';
+                    selectedOption.style.border = '3px solid #FF0000';
+                    selectedOption.style.boxShadow = '0 0 20px rgba(255, 0, 0, 0.8)';
+                } else {
+                    selectedOption.style.background = 'white';
+                    selectedOption.style.border = '2px solid #FFD700';
+                    selectedOption.style.boxShadow = 'none';
+                }
+            } else {
+                // Blink between white and gold for other amounts
+                if (isGold) {
+                    selectedOption.style.background = 'linear-gradient(135deg, #FFD700, #FF6B00)';
+                    selectedOption.style.border = '2px solid #FF6B00';
+                    selectedOption.style.boxShadow = '0 0 10px rgba(255, 215, 0, 0.6)';
+                } else {
+                    selectedOption.style.background = 'white';
+                    selectedOption.style.border = '2px solid #FFD700';
+                    selectedOption.style.boxShadow = 'none';
+                }
+            }
+            isGold = !isGold;
+        }, 600); // Blink every 600ms
+    }
+
+    // Set default $5 donation on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const defaultOption = document.querySelector('.donation-option[data-amount="5"]');
+        selectedOption = defaultOption;
+        startBlinking(); // Start blinking for default option
+        
+        const defaultNote = defaultOption.querySelector('p').textContent;
+        const defaultDescription = `Support Niko Vao Sili - ${defaultNote}`;
+        const defaultVenmoURL = `https://account.venmo.com/pay?recipients=Lengi-Sili&amount=5&note=${encodeURIComponent(defaultDescription)}&txn=pay`;
+        
+        document.getElementById('venmo-donate-btn').href = defaultVenmoURL;
+        document.getElementById('venmo-app-btn').href = defaultVenmoURL;
+    });
+
+    // Confetti function - HAPPY & LIVELY! 🎉
+    function launchConfetti() {
+        const confettiCount = 200;
+        const colors = ['#FFD700', '#FF6B00', '#FF0000', '#FFFFFF', '#000000', '#45B7D1', '#FFA07A'];
+        
+        for (let i = 0; i < confettiCount; i++) {
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.width = Math.random() * 10 + 8 + 'px'; // 8-18px random sizes
+            confetti.style.height = Math.random() * 10 + 8 + 'px';
+            confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.borderRadius = Math.random() > 0.7 ? '50%' : '0%'; // Mostly squares, some circles
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.top = '-20px';
+            confetti.style.opacity = '0.9';
+            confetti.style.pointerEvents = 'none';
+            confetti.style.zIndex = '9999';
+            confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+            
+            document.body.appendChild(confetti);
+            
+            // Happy falling confetti animation
+            const animation = confetti.animate([
+                { 
+                    transform: 'translateY(0) rotate(0deg)', 
+                    opacity: 1 
+                },
+                { 
+                    transform: `translateY(${window.innerHeight + 100}px) rotate(${Math.random() * 720}deg) translateX(${Math.random() * 100 - 50}px)`, 
+                    opacity: 0 
+                }
+            ], {
+                duration: 3000 + Math.random() * 2000, // 3-5 seconds of celebration!
+                easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)'
+            });
+            
+            // Clean up after the party
+            animation.onfinish = () => confetti.remove();
+        }
+    }
+
+    // Add confetti when clicking Venmo buttons
+    document.getElementById('venmo-donate-btn').addEventListener('click', function(e) {
+        const amount = this.href.match(/amount=([^&]*)/)[1];
+        launchConfetti(); // 🎉 HAPPY CONFETTI! 🎉
+        setTimeout(() => {
+            alert(`Thank you! You'll be redirected to Venmo to donate $${amount} to support Niko Vao Sili!`);
+        }, 800);
+    });
+    
+    document.getElementById('venmo-app-btn').addEventListener('click', function(e) {
+        const amount = this.href.match(/amount=([^&]*)/)[1];
+        launchConfetti(); // 🎉 HAPPY CONFETTI! 🎉
+        setTimeout(() => {
+            alert(`Thank you! Opening Venmo app to donate $${amount} to support Niko Vao Sili!`);
+        }, 800);
+    });
+</script>
 </body>
 </html>
