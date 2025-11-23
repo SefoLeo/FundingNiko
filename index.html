@@ -601,18 +601,19 @@
         </section>
 
         <section class="venmo-section">
-    <h2 style="font-size: 1.1rem;">Or Choose Your Own Amount</h2>
-    <p style="font-size: 0.9rem;">Support Niko with any amount you'd like!</p>
-    
-    <div style="background: rgba(255,255,255,0.7); padding: 0.8rem; border-radius: 8px; display: inline-block; margin: 0.8rem 0; border: 2px solid #FF6B00;">
-        <div class="venmo-qr">
-            <img src="LengiSili-venmo.jpg" alt="Venmo QR Code for Lengi Sili">
-        </div>
-    </div>
-    
-    <p style="font-size: 0.9rem;"><strong>Venmo:</strong> @Lengi-Sili (nikoVao'sMom)</p>
-    <!-- Back to working Venmo link -->
-    <a href="https://venmo.com/Lengi-Sili?txn=pay" class="btn" style="background: linear-gradient(135deg, #3D95CE, #2a7bb8); color: white;" target="_blank">Custom Venmo Donation</a>
+            <h2 style="font-size: 1.1rem;">Or Choose Your Own Amount</h2>
+            <p style="font-size: 0.9rem;">Support Niko with any amount you'd like!</p>
+            
+            <div style="background: rgba(255,255,255,0.7); padding: 0.8rem; border-radius: 8px; display: inline-block; margin: 0.8rem 0; border: 2px solid #FF6B00;">
+                <div class="venmo-qr">
+                    <img src="LengiSili-venmo.jpg" alt="Venmo QR Code for Lengi Sili">
+                </div>
+            </div>
+            
+            <p style="font-size: 0.9rem;"><strong>Venmo:</strong> @Lengi-Sili (nikoVao'sMom)</p>
+            <!-- Working Venmo link with auto-fill -->
+            <a href="https://venmo.com/Lengi-Sili?txn=pay" class="btn" style="background: linear-gradient(135deg, #3D95CE, #2a7bb8); color: white;" target="_blank">Custom Venmo Donation</a>
+        </section>
 
         <!-- Updated Video Section -->
         <section class="video-section">
@@ -628,8 +629,6 @@
             </div>
             <p style="margin-top: 1rem; font-size: 0.9rem;">See why we're excited to support Niko's basketball journey!</p>
         </section>
-    </main>
-</section>
     </main>
 
     <footer class="footer">
@@ -795,7 +794,7 @@
                 </div>`;
             }).join('');
             
-            // Create Venmo button for right column - BACK TO WORKING FORMAT
+            // Create Venmo button for right column WITH AUTO-FILL
             const descriptions = [...new Set(cart.map(item => item.description))].join(' + ');
             const venmoURL = `https://venmo.com/Lengi-Sili?txn=pay&amount=${total}&note=${encodeURIComponent(`Support Niko Vao Sili - ${descriptions}`)}`;
             
@@ -807,7 +806,7 @@
             donateBtn.href = venmoURL;
             donateBtn.className = 'btn';
             donateBtn.target = '_blank';
-            donateBtn.textContent = `Click to Donate (Venmo)`;
+            donateBtn.textContent = `Donate $${total} via Venmo`;
             donateBtn.id = 'venmo-donate-btn';
             donateBtn.style.marginTop = '1rem';
             
