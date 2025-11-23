@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support Niko Vao Sili - Gilbert High Boy's Basketball</title>
+    <title>Support {Niko} Vao Sili - Gilbert High Boy's Basketball</title>
     
-    <style>
-        /* All your existing CSS styles remain exactly the same */
+
+	<style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Georgia', serif; line-height: 1.5; color: #2C2C2C; background: #FFFFFF; min-height: 75vh; }
         .container { max-width: 1000px; margin: 0 auto; padding: 0 15px; }        
@@ -46,6 +46,7 @@
             filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.8));
             display: inline-block;
             font-weight: bold;
+           
         }
         .header-content .italic-name {
             font-style: italic;
@@ -81,17 +82,46 @@
             border-color: #FF6B00;
             animation: selectedPulse 1s infinite;
         }
-        .donation-option h3 { 
-            font-size: 1.5rem; 
-            margin-bottom: 0.2rem; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.3rem;
-        }
+        .donation-option h3 { font-size: 1.5rem; margin-bottom: 0.2rem; }
         .donation-option p { font-size: 1rem; }
         .donation-icon { font-size: 2rem; margin-bottom: 0.3rem; }
 
+/* Basketball in donation containers */
+.donation-basketball {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    opacity: 1;
+}
+
+.donation-basketball.hidden {
+    opacity: 0;
+    transform: translateX(-50%) scale(0);
+}
+
+/* Flying basketball animation */
+.flying-basketball {
+    position: fixed;
+    font-size: 1.5rem;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+        @keyframes selectedPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 215, 0, 0.6); }
+            50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 215, 0, 0.9); }
+        }
+
+        /* Flip the left shoe */
+        .left-shoe .donation-icon {
+            transform: scaleX(-1);
+            display: inline-block;
+        }
+        
+        /* Updated $50 donation option with red text and dancing icon */
         .donation-option[data-amount="50"] {
             background: white;
             border: 2px solid #FFD700;
@@ -99,30 +129,11 @@
             overflow: hidden;
         }
 
-        .donation-option[data-amount="50"] h3 {
-            font-size: 1.4rem;
-            color: #0066FF;
-            font-weight: bold;
-            text-shadow: 
-                1px 1px 0 #FFD700,
-                -1px -1px 0 #FFD700,
-                1px -1px 0 #FFD700,
-                -1px 1px 0 #FFD700,
-                0 0 3px rgba(255,215,0,0.5);
-            position: relative;
-            z-index: 2;
-        }
-
+        .donation-option[data-amount="50"] h3,
         .donation-option[data-amount="50"] p {
-            font-size: 0.9rem;
-            color: #0066FF;
+            color: #FF0000; /* Bright red text */
             font-weight: bold;
-            text-shadow: 
-                1px 1px 0 #FFD700,
-                -1px -1px 0 #FFD700,
-                1px -1px 0 #FFD700,
-                -1px 1px 0 #FFD700,
-                0 0 3px rgba(255,215,0,0.5);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Text shadow */
             position: relative;
             z-index: 2;
         }
@@ -133,67 +144,46 @@
             animation: selectedPulse 1s infinite;
         }
 
+        /* Dancing animation for the $50 icon when selected - UPDATED */
         .donation-option[data-amount="50"].selected .donation-icon {
             animation: danceMove 1.2s infinite alternate ease-in-out;
             position: relative;
         }
 
         @keyframes danceMove {
-            0% { transform: translateX(-25px) rotate(-10deg); }
-            25% { transform: translateX(-15px) rotate(-5deg); }
-            50% { transform: translateX(0) rotate(0deg); }
-            75% { transform: translateX(15px) rotate(5deg); }
-            100% { transform: translateX(25px) rotate(10deg); }
-        }
-
-        .donation-basketball {
-            position: static;
-            font-size: 1rem;
-            margin-left: 0.3rem;
-            display: inline-flex;
-            align-items: center;
-            transition: all 0.3s ease;
-            opacity: 1;
-        }
-
-        .donation-basketball.hidden {
-            opacity: 0;
-            transform: scale(0);
-        }
-
-        .flying-basketball {
-            position: fixed;
-            font-size: 1.5rem;
-            z-index: 1000;
-            pointer-events: none;
-        }
-
-        @keyframes selectedPulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 215, 0, 0.6); }
-            50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 215, 0, 0.9); }
-        }
-
-        .left-shoe .donation-icon {
-            transform: scaleX(-1);
-            display: inline-block;
+            0% { 
+                transform: translateX(-25px) rotate(-10deg); 
+            }
+            25% {
+                transform: translateX(-15px) rotate(-5deg);
+            }
+            50% {
+                transform: translateX(0) rotate(0deg);
+            }
+            75% {
+                transform: translateX(15px) rotate(5deg);
+            }
+            100% { 
+                transform: translateX(25px) rotate(10deg); 
+            }
         }
         
         .btn { display: inline-block; padding: 10px 20px; background: linear-gradient(135deg, #FF6B00, #FFD700); color: #000; text-decoration: none; border-radius: 18px; font-weight: bold; border: 2px solid #000; margin: 0.8rem; transition: transform 0.3s; font-size: 1.2rem; }
         .btn:hover { transform: translateY(-2px); }
         
         .share-btn { 
-            background: #EAECEC !important;
-            color: #0066FF !important;
-            border: 2px solid #2C2C2C !important;
-            font-size: 0.9rem !important;
-            padding: 8px 16px !important;
-            margin: 0.5rem !important;
-            font-family: 'Georgia', serif !important;
-            font-weight: normal !important;
-            text-decoration: underline !important;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2) !important;
-            border-radius: 4px !important;
-        }
+    background: #EAECEC !important;
+    color: #0066FF !important;
+    border: 2px solid #2C2C2C !important;
+    font-size: 0.9rem !important;
+    padding: 8px 16px !important;
+    margin: 0.5rem !important;
+    font-family: 'Georgia', serif !important;
+    font-weight: normal !important;
+    text-decoration: underline !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2) !important;
+    border-radius: 4px !important; /* Slightly rounded corners */
+}
         
         .cart-summary {
             background: linear-gradient(135deg, #f8f8f8, #ffffff);
@@ -220,7 +210,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.2rem;
+            gap: 0.2rem; /* Reduced gap between items */
         }
         
         .cart-item {
@@ -228,17 +218,18 @@
             align-items: center;
             gap: 0.5rem;
             font-size: 0.9rem;
-            margin: 0.1rem 0;
+            margin: 0.1rem 0; /* Reduced margin */
         }
         
         .cart-item-icon {
-            font-size: 1rem;
+            font-size: 1rem; /* Smaller icon size */
             display: flex;
-            align-items: center;
+            align-items: center; /* Vertically center icons */
             justify-content: center;
-            height: 1.2rem;
+            height: 1.2rem; /* Fixed height for consistent alignment */
         }
         
+        /* Flip the left shoe icon in cart */
         .cart-item .cart-item-icon:has(span:contains("👟")):first-child {
             transform: scaleX(-1);
         }
@@ -259,6 +250,15 @@
             gap: 0.5rem;
         }
 
+        /* Basketball animation styles */
+        .basketball-animation {
+            position: fixed;
+            font-size: 1.5rem;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        /* Tiger Pride Section - FIXED */
         .tiger-pride { 
             margin: 1rem 0; 
         }
@@ -309,6 +309,7 @@
             border-radius: 8px;
         }
         
+        /* Video Section */
         .video-section { 
             background: linear-gradient(135deg, #000000, #2d2d2d); 
             color: #FFD700; 
@@ -331,6 +332,7 @@
             border: 1px solid #FFD700;
         }
         
+        /* Smaller Venmo Section */
         .venmo-section { 
             background: linear-gradient(135deg, #FFD700, #FFED4E); 
             color: #000; 
@@ -359,6 +361,7 @@
             object-fit: contain; 
         }
         
+        /* Footer with same background as header */
         .footer { 
             background: linear-gradient(135deg, #000000, #2d2d2d, #FFD700); 
             color: #FFD700; 
@@ -367,27 +370,113 @@
             margin-top: 1.5rem; 
         }
         
-        /* Responsive styles remain the same */
         @media (max-width: 768px) {
-            .header-content h1 { font-size: 2rem; }
-            .header-content h2 { font-size: 1.6rem; }
-            .header-content .player-name { font-size: 1.7rem; }
-            .basketball-icon { font-size: 2.2rem; }
-            .donation-options { grid-template-columns: repeat(3, 1fr); }
-            .cart-summary { grid-template-columns: 1fr; }
-            .tiger-pride-top-row h3 { font-size: 1.6rem; }
-            .video-container iframe { height: 250px; }
+            .header { padding: 1.2rem 0; }
+            .header-content h1 { 
+                font-size: 2rem;
+                text-shadow: 
+                    2px 2px 0 #000,
+                    -1px -1px 0 #000,
+                    1px -1px 0 #000,
+                    -1px 1px 0 #000,
+                    0 0 8px rgba(255,215,0,0.8);
+            }
+            .header-content h2 { 
+                font-size: 1.6rem;
+                text-shadow: 
+                    2px 2px 0 #000,
+                    -1px -1px 0 #000,
+                    1px -1px 0 #000,
+                    -1px 1px 0 #000,
+                    0 0 6px rgba(255,215,0,0.6);
+            }
+            .header-content .player-name {
+                font-size: 1.7rem;
+            }
+            .basketball-icon {
+                font-size: 2.2rem;
+            }
+            .campaign-hero { padding: 0.8rem; margin: 0.8rem auto; }
+            .donation-options { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+            .donation-option { padding: 0.5rem; }
+            .cart-summary {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .cart-items {
+                text-align: center;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+            .action-buttons .btn {
+                min-width: auto;
+            }
+            
+            /* Mobile layout for tiger pride images - FIXED */
+            .tiger-pride-images {
+                gap: 0.8rem;
+            }
+            .tiger-pride-image img {
+                max-height: 130px;
+            }
+            .tiger-pride-top-row h3 {
+                font-size: 1.6rem;
+                text-shadow: 
+                    1px 1px 0 #fff,
+                    -1px -1px 0 #fff,
+                    1px -1px 0 #fff,
+                    -1px 1px 0 #fff,
+                    2px 2px 3px rgba(0,0,0,0.3);
+            }
+            .video-container iframe {
+                height: 250px;
+            }
         }
         
         @media (max-width: 480px) {
-            .header-content h1 { font-size: 1.7rem; }
-            .header-content h2 { font-size: 1.4rem; }
-            .header-content .player-name { font-size: 1.5rem; }
-            .basketball-icon { font-size: 1.9rem; }
+            .container { padding: 0 10px; }
+            .header-content h1 { 
+                font-size: 1.7rem;
+                text-shadow: 
+                    2px 2px 0 #000,
+                    -1px -1px 0 #000,
+                    1px -1px 0 #000,
+                    -1px 1px 0 #000,
+                    0 0 6px rgba(255,215,0,0.8);
+            }
+            .header-content h2 { 
+                font-size: 1.4rem;
+                text-shadow: 
+                    2px 2px 0 #000,
+                    -1px -1px 0 #000,
+                    1px -1px 0 #000,
+                    -1px 1px 0 #000,
+                    0 0 5px rgba(255,215,0,0.6);
+            }
+            .header-content .player-name {
+                font-size: 1.5rem;
+            }
+            .basketball-icon {
+                font-size: 1.9rem;
+            }
             .donation-options { grid-template-columns: repeat(2, 1fr); }
-            .tiger-pride-top-row h3 { font-size: 1.4rem; }
-            .btn { padding: 8px 16px; font-size: 0.85rem; }
-            .video-container iframe { height: 200px; }
+            .tiger-pride-images {
+                gap: 0.6rem;
+            }
+            .tiger-pride-image img {
+                max-height: 110px;
+            }
+            .tiger-pride-top-row h3 {
+                font-size: 1.4rem;
+            }
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+            .video-container iframe {
+                height: 200px;
+            }
         }
     </style>
 </head>
@@ -396,7 +485,7 @@
         <div class="container">
             <div class="header-content">
                 <h1><span class="basketball-icon">🏀</span> GO TIGERS! <span class="basketball-icon">🏀</span></h1>
-                <h2>Help Support <span class="italic-name">Niko</span> <span class="player-name">VAO SILI</span> on his Basketball Journey</h2>
+                <h2>Help Support {<span class="italic-name">Niko</span>} <span class="player-name">VAO SILI</span> on his Basketball Journey</h2>
             </div>
         </div>
     </header>
@@ -404,13 +493,19 @@
     <section class="tiger-pride">
         <div class="container">
             <div class="tiger-pride-container">
+                <!-- Top Row: Text -->
                 <div class="tiger-pride-top-row">
                     <h3>Gilbert High School Tigers Pride!</h3>
                 </div>
+                
+                <!-- Bottom Row: Images in responsive grid -->
                 <div class="tiger-pride-images">
+                    <!-- niko Photo -->
                     <div class="tiger-pride-image">
-                        <img src="Niko-photo.png" alt="Niko Vao Sili - Gilbert High Basketball">
+                        <img src="Niko-photo.png" alt="{niko} Vao Sili - Gilbert High Basketball">
                     </div>
+                    
+                    <!-- Tiger Mascot -->
                     <div class="tiger-pride-image">
                         <img src="TigerMascot.png" alt="Gilbert High Tigers Mascot">
                     </div>
@@ -433,36 +528,37 @@
             <div class="donation-options">
                 <div class="donation-option" data-amount="5" data-description="Training Snacks" data-icon="🍕">
                     <div class="donation-icon">🍕</div>
-                    <h3>$5<span class="donation-basketball">🏀</span></h3>
+                    <h3>$5</h3>
                     <p>Training Snacks</p>
                 </div>
                 <div class="donation-option" data-amount="10" data-description="2 x Gatorades" data-icon="🥤">
                     <div class="donation-icon">🥤🥤</div>
-                    <h3>$10<span class="donation-basketball">🏀</span></h3>
+                    <h3>$10</h3>
                     <p>2 x Gatorades</p>
                 </div>
                 <div class="donation-option" data-amount="20" data-description="Basketball Socks" data-icon="🧦">
                     <div class="donation-icon">🧦</div>
-                    <h3>$20<span class="donation-basketball">🏀</span></h3>
+                    <h3>$20</h3>
                     <p>Basketball Socks</p>
                 </div>
                 <div class="donation-option left-shoe" data-amount="25" data-description="Left Baller Shoe" data-icon="👟">
                     <div class="donation-icon">👟</div>
-                    <h3>$25<span class="donation-basketball">🏀</span></h3>
+                    <h3>$25</h3>
                     <p>Left Baller Shoe</p>
                 </div>
                 <div class="donation-option" data-amount="25" data-description="Right Baller Shoe" data-icon="👟">
                     <div class="donation-icon">👟</div>
-                    <h3>$25<span class="donation-basketball">🏀</span></h3>
+                    <h3>$25</h3>
                     <p>Right Baller Shoe</p>
                 </div>
                 <div class="donation-option" data-amount="50" data-description="Dance Performance" data-icon="🤼">
                     <div class="donation-icon">🤼</div>
-                    <h3>$50<span class="donation-basketball">🏀</span></h3>
+                    <h3>$50</h3>
                     <p>My Old Bro's will Dance for You!</p>
                 </div>
             </div>
             
+            <!-- Shopping Cart Summary - TWO COLUMN LAYOUT -->
             <div class="cart-summary">
                 <div class="cart-column">
                     <h4 style="margin-bottom: 0.5rem; color: #2C2C2C;">Your Donation Basket</h4>
@@ -489,16 +585,17 @@
     </div>
     
     <p style="font-size: 0.9rem;"><strong>Venmo:</strong> @Lengi-Sili (nikoVao'sMom)</p>
-    <!-- SIMPLE WEB LINK - No app opening attempt -->
-    <a href="https://venmo.com/Lengi-Sili" class="btn" style="background: linear-gradient(135deg, #3D95CE, #2a7bb8); color: white;" target="_blank">Custom Venmo Donation</a>
+    <!-- Updated Venmo link for international users -->
+    <a href="https://venmo.com/Lengi-Sili?txn=pay" class="btn" style="background: linear-gradient(135deg, #3D95CE, #2a7bb8); color: white;" target="_blank">Custom Venmo Donation</a>
 </section>
 
+        <!-- Updated Video Section -->
         <section class="video-section">
             <h2 style="font-size: 1.3rem; margin-bottom: 1rem;">Introducing the 2025 Team</h2>
             <div class="video-container">
                 <iframe 
                     src="https://www.youtube.com/embed/uJtdjiWZs34" 
-                    title="Niko Basketball Highlights" 
+                    title="niko Basketball Highlights" 
                     frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                     allowfullscreen>
@@ -514,19 +611,23 @@
             <button class="btn share-btn" id="share-page-btn">Share Niko's Page</button>
             <p style="font-size: 0.8rem;">Email: PrincessLengi@yahoo.com</p>
             <p style="font-size: 0.8rem;">Phone: (602) 350-3834</p>
-            <p style="font-weight: bold; margin-top: 0.4rem; font-size: 0.8rem;">! GO NIKO VAO !</p>
+            <p style="font-weight: bold; margin-top: 0.4rem; font-size: 0.8rem;">! GO {niko} VAO !</p>
         </div>
     </footer>
 
     <script>
-    // Shopping Cart System - COMPLETE AND WORKING
+    // Shopping Cart System - FIXED!
     let cart = [];
     let selectedOptions = new Set();
 
     // Initialize donation options with basketballs
     document.querySelectorAll('.donation-option').forEach(option => {
-        // Basketballs are now inline in the HTML, so we'll find them
-        const basketball = option.querySelector('.donation-basketball');
+        // Add basketball to each donation option
+        const basketball = document.createElement('div');
+        basketball.className = 'donation-basketball';
+        basketball.innerHTML = '🏀';
+        option.style.position = 'relative';
+        option.appendChild(basketball);
         
         option.addEventListener('click', function() {
             const amount = parseInt(this.getAttribute('data-amount'));
@@ -543,9 +644,7 @@
                 
                 // Return basketball to donation option
                 const basketball = this.querySelector('.donation-basketball');
-                if (basketball) {
-                    basketball.classList.remove('hidden');
-                }
+                basketball.classList.remove('hidden');
             } else {
                 // Add to cart
                 selectedOptions.add(optionId);
@@ -671,9 +770,9 @@
                 </div>`;
             }).join('');
             
-            // SIMPLE WEB LINK - No app opening attempt
+            // Create Venmo button for right column
             const descriptions = [...new Set(cart.map(item => item.description))].join(' + ');
-            const venmoURL = `https://venmo.com/Lengi-Sili?amount=${total}&note=${encodeURIComponent(`Support Niko Vao Sili - ${descriptions}`)}`;
+            const venmoURL = `https://venmo.com/${encodeURIComponent('Lengi-Sili')}?txn=pay&amount=${total}&note=${encodeURIComponent(`Support Niko Vao Sili - ${descriptions}`)}`;
             
             // Remove existing button if any
             const existingBtn = document.getElementById('venmo-donate-btn');
@@ -683,7 +782,7 @@
             donateBtn.href = venmoURL;
             donateBtn.className = 'btn';
             donateBtn.target = '_blank';
-            donateBtn.textContent = `Donate $${total} via Venmo`;
+            donateBtn.textContent = `Click to Donate (Venmo)`;
             donateBtn.id = 'venmo-donate-btn';
             donateBtn.style.marginTop = '1rem';
             
