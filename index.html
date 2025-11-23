@@ -611,9 +611,8 @@
     </div>
     
     <p style="font-size: 0.9rem;"><strong>Venmo:</strong> @Lengi-Sili (nikoVao'sMom)</p>
-    <!-- Updated Venmo link to use web version only -->
-    <a href="https://venmo.com/code?user_id=Lengi-Sili" class="btn" style="background: linear-gradient(135deg, #3D95CE, #2a7bb8); color: white;" target="_blank">Custom Venmo Donation</a>
-</section>
+    <!-- Back to working Venmo link -->
+    <a href="https://venmo.com/Lengi-Sili?txn=pay" class="btn" style="background: linear-gradient(135deg, #3D95CE, #2a7bb8); color: white;" target="_blank">Custom Venmo Donation</a>
 
         <!-- Updated Video Section -->
         <section class="video-section">
@@ -629,6 +628,8 @@
             </div>
             <p style="margin-top: 1rem; font-size: 0.9rem;">See why we're excited to support Niko's basketball journey!</p>
         </section>
+    </main>
+</section>
     </main>
 
     <footer class="footer">
@@ -794,9 +795,9 @@
                 </div>`;
             }).join('');
             
-            // Create Venmo button for right column - USING WEB VERSION ONLY
+            // Create Venmo button for right column - BACK TO WORKING FORMAT
             const descriptions = [...new Set(cart.map(item => item.description))].join(' + ');
-            const venmoURL = `https://venmo.com/code?user_id=Lengi-Sili&amount=${total}&note=${encodeURIComponent(`Support Niko Vao Sili - ${descriptions}`)}`;
+            const venmoURL = `https://venmo.com/Lengi-Sili?txn=pay&amount=${total}&note=${encodeURIComponent(`Support Niko Vao Sili - ${descriptions}`)}`;
             
             // Remove existing button if any
             const existingBtn = document.getElementById('venmo-donate-btn');
